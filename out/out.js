@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 	}
 	if(url) {
 		document.body.appendChild(status_holder);
-		status_holder.textContent = "Fetching demo file...";
+		status_holder.textContent = "Загружаем повтор...";
 		try {
 			let response = await fetch(url, {credentials: +querystring.get('send_credentials') ? 'include' : 'same-origin'});
 			let data = await response.arrayBuffer();
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 		fileselect.type = "file";
 		let button = document.createElement("input");
 		button.type = "button";
-		button.value = "Open demo from file";
+		button.value = "Открыть из файла";
 		button.addEventListener("click", () => {
 			if(!fileselect.files[0]) return;
 			if(running) return;
@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", async function() {
 });
 
 async function run_demo(buf, status_holder) {
-	status_holder.textContent = "Parsing demo file...";
+	status_holder.textContent = "Загружаем повтор...";
 	let demo = await load_demo(buf);
 	console.log(demo);
 
-	status_holder.textContent = "Downloading icons...";
+	status_holder.textContent = "Загружаем иконки...";
 	let turfs = new Map();
 	let icons = new Map();
 	let icon_promises = [];
@@ -69,7 +69,7 @@ async function run_demo(buf, status_holder) {
 				console.error(e);
 			} finally {
 				completed++;
-				status_holder.textContent = "Downloading icons..." + (completed * 100 / demo.icons_used.length).toFixed(1) + "%";
+				status_holder.textContent = "Загружаем иконки..." + (completed * 100 / demo.icons_used.length).toFixed(1) + "%";
 			}
 		})());
 	}
