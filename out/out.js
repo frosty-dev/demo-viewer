@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 	}
 	if(url) {
 		document.body.appendChild(status_holder);
-		status_holder.textContent = "Загружаем повтор...";
+		status_holder.textContent = "Fetching demo file...";
 		try {
 			let response = await fetch(url, {credentials: +querystring.get('send_credentials') ? 'include' : 'same-origin'});
 			if(response.status != 200) {
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 		fileselect.type = "file";
 		let button = document.createElement("input");
 		button.type = "button";
-		button.value = "Открыть из файла";
+		button.value = "Open demo from file";
 		button.addEventListener("click", () => {
 			if(!fileselect.files[0]) return;
 			if(running) return;
@@ -64,12 +64,12 @@ async function run_demo(source, status_holder) {
 				console.error(e);
 			} finally {
 				completed++;
-				status_holder.textContent = "Загружаем иконки..." + (completed * 100 / demo.icons_used.length).toFixed(1) + "%";
+				status_holder.textContent = "Downloading icons..." + (completed * 100 / demo.icons_used.length).toFixed(1) + "%";
 			}
 		})());
 	}
 	await Promise.all(icon_promises);*/
-	let chat_css = await (await fetch("https://cdn.jsdelivr.net/gh/" + window.repository + "@" + demo.commit + "/code/modules/goonchat/browserassets/css/browserOutput.css")).text();
+	let chat_css = await (await fetch("https://cdn.jsdelivr.net/gh/" + window.repository + "/code/modules/goonchat/browserassets/css/browserOutput.css")).text();
 	chat_css = chat_css.replace(/((?:^|[},])[^\@\{]*?)([a-zA-Z.#\[\]":=\-_][a-zA-Z0-9.# \[\]":=\-_]*)(?=.+\{)/g, "$1.chat_window $2");
 	chat_css = chat_css.replace(/height: [^;]+%;/g, "");
 	chat_css = chat_css.replace(/ ?html| ?body/g, "");
